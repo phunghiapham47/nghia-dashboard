@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "./supabaseClient"; // Đảm bảo đường dẫn này đúng với file cấu hình của bạn
+import { supabase } from "./supabase"; // Đảm bảo đường dẫn này đúng với file cấu hình của bạn
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
