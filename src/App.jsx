@@ -115,4 +115,92 @@ export default function App() {
         </header>
 
         {/* Tab Filters */}
-        <div className
+        <div className="flex gap-3 mb-6">
+          <button
+            onClick={() => setFilter("todo")}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition border ${
+              filter === "todo"
+                ? "bg-yellow-500/10 border-yellow-500/30 text-yellow-500"
+                : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white"
+            }`}
+          >
+            {todoCount} To-Dos
+          </button>
+          <button
+            onClick={() => setFilter("done")}
+            className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition border ${
+              filter === "done"
+                ? "bg-zinc-800 border-zinc-700 text-zinc-300"
+                : "bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-white"
+            }`}
+          >
+            {doneCount} Done
+          </button>
+        </div>
+
+        {/* Form Add Task */}
+        <form onSubmit={handleAddTask} className="relative flex items-center bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden focus-within:border-zinc-700 transition mb-4 shadow-2xl">
+          <span className="pl-5 text-zinc-600 font-mono text-xl">+</span>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Nhập task mới (Ví dụ: 26/5 - Hoàn thiện Proposal)..."
+            className="w-full bg-transparent py-4 pl-3 pr-24 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="absolute right-2 top-2 bottom-2 bg-yellow-500 hover:bg-yellow-400 text-black px-5 rounded-lg text-xs font-bold tracking-wider uppercase transition active:scale-95"
+          >
+            ADD
+          </button>
+        </form>
+
+        {/* Thông báo lỗi nếu có */}
+        {error && (
+          <p className="text-center text-sm font-mono text-red-500 my-4 tracking-wide animate-pulse">
+            {error}
+          </p>
+        )}
+
+        {/* Danh sách Tasks */}
+        <div className="space-y-2 mt-6">
+          {filteredTasks.length === 0 ? (
+            <div className="text-center py-12 bg-zinc-900/40 border border-dashed border-zinc-850 rounded-xl">
+              <p className="text-zinc-600 text-sm font-mono">Không tìm thấy tác vụ nào trong danh sách.</p>
+            </div>
+          ) : (
+            filteredTasks.map((task) => (
+              <div
+                key={task.id}
+                onClick={() => handleToggleStatus(task)}
+                className="group flex items-center justify-between p-4 bg-zinc-900/80 border border-zinc-850 rounded-xl hover:bg-zinc-850 hover:border-zinc-700 transition cursor-pointer shadow-sm select-none"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition ${
+                    task.status === "done" 
+                      ? "bg-zinc-700 border-zinc-600 text-zinc-400" 
+                      : "border-zinc-700 group-hover:border-zinc-500"
+                  }`}>
+                    {task.status === "done" && "✓"}
+                  </div>
+                  <span className={`text-sm tracking-wide transition ${
+                    task.status === "done" ? "line-through text-zinc-500" : "text-zinc-200"
+                  }`}>
+                    {task.title}
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-zinc-600 group-hover:text-zinc-400 transition">
+                  {new Date(task.createdAt).toLocaleDateString("vi-VN", {
+                    month: "numeric",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
