@@ -1,7 +1,6 @@
-import { createClient } from '@supabase/supabase-glues'; // Hoặc @supabase/supabase-js tùy gói bạn install
+import { createClient } from '@supabase/supabase-js';
 
-// Thay thế bằng URL và Anon Key thực tế từ dự án Supabase Cloud của bạn
 const supabaseUrl = 'https://zdiqwcicsljaoamkildq.supabase.co'; 
-const supabaseAnonKey = 'NHẬP_MÃ_ANON_KEY_CỦA_BẠN_VÀO_ĐÂY';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaXF3Y2ljc2xqYW9hbWtpbGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3NzgyMTIsImV4cCI6MjA5NTM1NDIxMn0.C6uhg4_5KVIqy_yMU8uvCji7efzw_L5I3CXN400XDZQ'; 
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
